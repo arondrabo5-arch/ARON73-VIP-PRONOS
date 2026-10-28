@@ -1,0 +1,77 @@
+<escape><!DOCTYPE html>
+
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#090909">
+<title>ARON73 VIP PRONOS</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#090909;color:#fff;font-family:Arial,sans-serif}
+header{text-align:center;padding:24px 12px;border-bottom:2px solid #d9ad42}
+h1,h2{color:#f2c14e}
+header p{color:#ccc}
+main{max-width:800px;margin:auto;padding:18px}
+.card{background:#171717;border:1px solid #55451e;border-radius:12px;padding:18px;margin:16px 0}
+label{display:block;margin:12px 0 6px}
+input,textarea{width:100%;padding:12px;background:#090909;color:white;border:1px solid #b58a2b;border-radius:7px}
+button{background:#f2c14e;color:#111;font-weight:bold;border:0;border-radius:7px;padding:12px;margin-top:12px;cursor:pointer}
+.note{color:#ccc;line-height:1.5}
+footer{text-align:center;color:#aaa;padding:24px}
+</style>
+</head>
+<body>
+<header>
+<h1>ARON73 VIP PRONOS</h1>
+<p>LA CONFIANCE RESTE</p>
+<p>ANALYSE • DISCIPLINE • PRUDENCE</p>
+</header>
+<main>
+<section class="card">
+<h2>⚽ Espace VIP</h2>
+<p class="note">Bienvenue dans ARON73 VIP PRONOS. Analyse les matchs avec prudence. Aucun match ni résultat fictif ne sera affiché.</p>
+</section>
+<section class="card">
+<h2>📊 Préparer une analyse</h2>
+<label for="match">Nom du match</label>
+<input id="match" placeholder="Ex. Real Madrid - Barcelone">
+<label for="forme">Forme récente des équipes</label>
+<textarea id="forme" rows="3" placeholder="Inscris ici les informations vérifiées sur les derniers matchs."></textarea>
+<label for="attaque">Analyse attaque, milieu et défense</label>
+<textarea id="attaque" rows="3" placeholder="Ajoute les informations connues et vérifiées."></textarea>
+<label for="buts">Buts et corners</label>
+<textarea id="buts" rows="2" placeholder="Inscris les statistiques vérifiées."></textarea>
+<button onclick="preparer()">Préparer la fiche</button>
+<div id="resultat" class="note" aria-live="polite"></div>
+</section>
+<section class="card">
+<h2>🎯 Suivi des scores</h2>
+<label for="scoreprevu">Score pronostiqué</label>
+<input id="scoreprevu" placeholder="Ex. 2-1">
+<label for="scorereel">Score réel après le match</label>
+<input id="scorereel" placeholder="À remplir après le match">
+<button onclick="suivre()">Comparer les scores</button>
+<p id="comparaison" class="note" aria-live="polite"></p>
+</section>
+<section class="card">
+<h2>🔐 Accès VIP</h2>
+<p class="note">Les paiements Orange Money et Moov Money nécessitent une validation manuelle avant l'activation d'un accès VIP. Aucun paiement n'est traité sur cette page.</p>
+</section>
+</main>
+<footer>ARON73 VIP PRONOS · La confiance reste</footer>
+<script>
+function preparer(){
+const m=document.getElementById('match').value.trim();
+const r=document.getElementById('resultat');
+if(!m){r.textContent='Entre le nom du match pour préparer ta fiche.';return;}
+r.textContent='Fiche créée pour : '+m+'. Complète les analyses avec des données vérifiées. Aucun score ni pourcentage de confiance n’est inventé.';
+}
+function suivre(){
+const p=document.getElementById('scoreprevu').value.trim();
+const r=document.getElementById('scorereel').value.trim();
+document.getElementById('comparaison').textContent=!p||!r?'Entre le score pronostiqué et le score réel pour les comparer.':p===r?'Le score exact est correct. Pronostic : '+p+'.':'Score pronostiqué : '+p+' ; score réel : '+r+'.';
+}
+</script>
+</body>
+</html></escape>
