@@ -1,5 +1,5 @@
 
-
+<link rel="manifest" href="manifest.json">
     $('resultat').textContent = 'Entre le nom du match.';
     return;
   }
