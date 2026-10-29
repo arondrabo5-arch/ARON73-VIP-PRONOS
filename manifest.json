@@ -1,1 +1,14 @@
 
+{
+  "name": "ARON73 VIP PRONOS",
+  "short_name": "ARON73 VIP",
+  "description": "Pronostics et analyses de football. La confiance reste.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#000000",
+  "theme_color": "#D4AF37",
+  "icons": []
+}
+
