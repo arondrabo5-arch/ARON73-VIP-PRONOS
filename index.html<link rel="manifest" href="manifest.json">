@@ -1,101 +1,118 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#d4af37">
 <title>ARON73 VIP PRONOS</title>
 <link rel="manifest" href="manifest.json">
-    $('resultat').textContent = 'Entre le nom du match.';
-    return;
-  }
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#080808;color:white;font-family:Arial,sans-serif}
+header{text-align:center;padding:25px 12px;background:#111;border-bottom:2px solid #d4af37}
+h1{color:#d4af37;font-size:25px;margin:5px}
+header p{color:#ccc;font-size:12px}
+main{padding:18px;max-width:600px;margin:auto}
+h2{color:#d4af37}
+.card{background:#151515;border:1px solid #8c7023;border-radius:12px;padding:16px;margin-bottom:18px}
+label{display:block;color:#d4af37;margin:12px 0 6px}
+input,textarea{width:100%;padding:12px;background:#080808;color:white;border:1px solid #777;border-radius:7px}
+button{background:#d4af37;color:#080808;border:0;border-radius:7px;padding:13px;font-weight:bold;width:100%;margin-top:15px}
+.result{color:#ddd;line-height:1.6}
+footer{text-align:center;color:#d4af37;padding:20px}
+</style>
+</head>
+<body>
+<header>
+<h1>ARON73 VIP PRONOS</h1>
+<p>ANALYSE • DISCIPLINE • PRUDENCE</p>
+<p>La confiance reste</p>
+</header>
+<main>
+<section class="card">
+<h2>ESPACE VIP</h2>
+<p>Bienvenue dans ton espace d'analyse football.</p>
+<p id="statut">Mode analyse : aucun match fictif affiché.</p>
+</section>
 
-  const fiche = {
-    match: nom,
-    forme: $('forme').value.trim(),
-    attaque: $('attaque').value.trim(),
-    buts: $('buts').value.trim(),
-    date: new Date().toLocaleString('fr-FR')
-  };
+<section class="card">
+<h2>PRÉPARER UNE ANALYSE</h2>
+<label>Nom du match</label>
+<input id="match" placeholder="Real Madrid - Barcelone">
 
-  historique.unshift(fiche);
-  $('resultat').textContent =
-    'Fiche préparée pour ' + nom +
-    '. Utilise uniquement des statistiques vérifiées. Aucun score ni pourcentage de confiance n’est inventé.';
-  renderHistorique();
+<label>Forme récente</label>
+<textarea id="forme" placeholder="Informations vérifiées"></textarea>
+
+<label>Attaque</label>
+<textarea id="attaque" placeholder="Analyse de l'attaque"></textarea>
+
+<label>Milieu de terrain</label>
+<textarea id="milieu" placeholder="Analyse du milieu"></textarea>
+
+<label>Défense</label>
+<textarea id="defense" placeholder="Analyse de la défense"></textarea>
+
+<label>Buts et corners</label>
+<textarea id="buts" placeholder="Statistiques vérifiées"></textarea>
+
+<button onclick="preparer()">PRÉPARER L'ANALYSE</button>
+<div id="resultat" class="result"></div>
+</section>
+
+<section class="card">
+<h2>HISTORIQUE</h2>
+<div id="historique">Aucune analyse enregistrée.</div>
+</section>
+</main>
+
+<footer>ARON73 VIP PRONOS © 2026</footer>
+
+<script>
+let historique=JSON.parse(localStorage.getItem('aron73_historique')||'[]');
+
+function afficher(){
+const zone=document.getElementById('historique');
+zone.innerHTML='';
+if(!historique.length){
+zone.textContent='Aucune analyse enregistrée.';
+return;
+}
+historique.forEach(f=>{
+const p=document.createElement('p');
+p.textContent=f.date+' — '+f.match;
+zone.appendChild(p);
+});
 }
 
-function renderFavoris() {
-  const zone = $('listeFavoris');
-  zone.replaceChildren();
-
-  if (!favoris.length) {
-    zone.textContent = 'Aucun favori enregistré.';
-    return;
-  }
-
-  favoris.forEach(m => {
-    const p = document.createElement('p');
-    p.textContent = m.homeTeam.name + ' - ' + m.awayTeam.name;
-    zone.appendChild(p);
-  });
+function preparer(){
+const nom=document.getElementById('match').value.trim();
+if(!nom){
+document.getElementById('resultat').textContent='Entre le nom du match.';
+return;
 }
-
-function renderHistorique() {
-  const zone = $('listeHistorique');
-  zone.replaceChildren();
-
-  if (!historique.length) {
-    zone.textContent = 'Aucun pronostic enregistré.';
-    return;
-  }
-
-  historique.forEach(f => {
-    const div = document.createElement('div');
-    div.className = 'match';
-    const titre = document.createElement('h3');
-    titre.textContent = f.match;
-    const details = document.createElement('p');
-    details.className = 'note';
-    details.textContent = 'Créée le ' + f.date;
-    div.append(titre, details);
-    zone.appendChild(div);
-  });
+const fiche={
+match:nom,
+forme:document.getElementById('forme').value,
+attaque:document.getElementById('attaque').value,
+milieu:document.getElementById('milieu').value,
+defense:document.getElementById('defense').value,
+buts:document.getElementById('buts').value,
+date:new Date().toLocaleString('fr-FR')
+};
+historique.unshift(fiche);
+localStorage.setItem('aron73_historique',JSON.stringify(historique));
+document.getElementById('resultat').textContent=
+'Fiche préparée pour '+nom+'. Les statistiques et pronostics doivent être vérifiés. Aucun score ni pourcentage n’est inventé.';
+afficher();
 }
+afficher();
 
-function suivre() {
-  const prevu = $('scoreprevu').value.trim();
-  const reel = $('scorereel').value.trim();
-  const zone = $('comparaison');
-
-  if (!prevu || !reel) {
-    zone.textContent = 'Entre le score pronostiqué et le score réel.';
-    return;
-  }
-
-  zone.textContent = prevu === reel
-    ? 'Le score exact est correct : ' + prevu
-    : 'Pronostiqué : ' + prevu + ' · Réel : ' + reel;
+if('serviceWorker' in navigator){
+window.addEventListener('load',()=>{
+navigator.serviceWorker.register('./service-worker.js').catch(()=>{});
+});
 }
-
-function vipInfo() {
-  const telephone = $('telephone').value.trim();
-  const paiement = $('paiement').value;
-  $('vipMessage').textContent =
-    'Moyen choisi : ' + paiement +
-    '. Contact : ' + (telephone || 'non renseigné') +
-    '. L’accès VIP nécessite une validation manuelle. Aucun paiement n’a été effectué.';
-}
-
-try {
-  const savedKey = localStorage.getItem('aron73_api_key');
-  if (savedKey) $('apiKey').value = savedKey;
-} catch (e) {
-  $('etat').textContent = 'Stockage local indisponible.';
-}
-
-const today = new Date().toISOString().slice(0,10);
-$('debut').value = today;
-$('fin').value = today;
 </script>
 </body>
 </html>
