@@ -1,4 +1,9 @@
-
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ARON73 VIP PRONOS</title>
 <link rel="manifest" href="manifest.json">
     $('resultat').textContent = 'Entre le nom du match.';
     return;
